@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pre Call Agent · Joveo</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="header">
+        <div>
+          <div class="logo">Joveo · Partnerships</div>
+          <div class="title">Pre Call Agent</div>
+          <div class="subtitle">Publisher call prep, automated. Human signs off.</div>
+        </div>
+        <div class="date-display">
+          <div class="date-day" id="date-day">—</div>
+          <div class="date-label" id="date-label">Loading...</div>
+        </div>
+      </div>
+
+      <div id="health-banner" class="banner hidden"></div>
+      <div id="error-toast" class="banner banner-error hidden"></div>
+      <div id="auth-panel" class="auth-panel hidden">
+        <div>
+          <div class="section-title">Google Calendar access</div>
+          <div class="section-subtitle" id="auth-subtitle">Sign in to load your own scheduled partner calls.</div>
+        </div>
+        <div class="auth-actions">
+          <button class="btn-primary" id="google-login-btn">Sign in with Google</button>
+          <button class="btn-secondary hidden" id="google-logout-btn">Sign out</button>
+        </div>
+      </div>
+
+      <!-- TODAY'S CALLS -->
+      <div class="section-card">
+        <div class="row-between">
+          <div>
+            <div class="section-title">📅 Today's partner calls</div>
+            <div class="section-subtitle">Pulled from your Google Calendar via the Calendar API.</div>
+          </div>
+          <button class="btn-secondary" id="reload-calls-btn">Reload</button>
+        </div>
+        <div id="calls-list" class="calls-list">
+          <div class="muted">Click reload to pull today's calls.</div>
+        </div>
+      </div>
+
+      <!-- BRIEF ANY PUBLISHER (manual, no calendar event needed) -->
+      <div class="section-card">
+        <div class="section-title">🎯 Brief any publisher</div>
+        <div class="section-subtitle">Pick from the curated list to generate a brief without a calendar event — useful for cold prep, pipeline calls, or ad-hoc requests.</div>
+        <div class="config-row">
+          <select id="manual-publisher" class="config-input">
+            <option value="">Select a publisher…</option>
+          </select>
+          <button class="btn-primary" id="manual-brief-btn">Open workbench →</button>
+        </div>
+      </div>
+
+      <!-- WORKBENCH (per partner) -->
+      <div class="section-card hidden" id="workbench">
+        <div class="row-between">
+          <div>
+            <div class="section-title">🔧 Workbench — <span id="wb-partner"></span></div>
+            <div class="section-subtitle" id="wb-subtitle"></div>
+          </div>
+          <button class="btn-secondary" id="wb-close">Close</button>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="brief">Brief</button>
+          <button class="tab" data-tab="notes">Notes &amp; QBR</button>
+          <button class="tab" data-tab="performance">Performance</button>
+          <button class="tab" data-tab="transcripts">Transcripts</button>
+        </div>
+
+        <!-- TAB: BRIEF -->
+        <div class="tab-panel active" data-panel="brief">
+          <div class="actions-row">
+            <button class="btn-primary" id="run-briefing-btn">⚡ Generate briefing</button>
+            <span class="muted" id="brief-status"></span>
+          </div>
+          <div class="actions-row hidden" id="view-original-row">
+            <button class="btn-secondary" id="view-original-btn">👁 View original (pre-edit)</button>
+            <span class="muted" id="view-mode-label"></span>
+          </div>
+          <div id="brief-output" class="brief-output"></div>
+          <div class="actions-row hidden" id="approve-row">
+            <button class="btn-approve" id="approve-btn">✓ Approve</button>
+            <button class="btn-secondary hidden" id="edit-approved-btn" title="Unlock this approved briefing for in-place edits — Re-approve will update this same briefing.">✏️ Edit this briefing</button>
+            <button class="btn-approve hidden" id="clone-btn" title="Save your edits as a NEW draft briefing — review and approve it separately. Leaves the original untouched.">📝 Save as new draft</button>
+            <button class="btn-secondary" id="open-deck-btn">📊 Open deck</button>
+            <button class="btn-secondary" id="pdf-btn">📄 Download PDF</button>
+            <button class="btn-secondary" id="slack-btn">💬 Send to Slack</button>
+            <button class="btn-secondary" id="email-btn">📧 Email</button>
+            <span class="muted" id="approve-status"></span>
+          </div>
+          <div id="slack-preview" class="slack-preview hidden"></div>
+        </div>
+
+        <!-- TAB: NOTES -->
+        <div class="tab-panel" data-panel="notes">
+          <div class="form-grid">
+            <select id="note-kind" class="config-input small">
+              <option value="note">Note</option>
+              <option value="qbr">QBR snippet</option>
+              <option value="contract">Contract term</option>
+            </select>
+            <input id="note-title" class="config-input" placeholder="Title (optional)" />
+            <textarea id="note-body" class="config-input" rows="3" placeholder="Body — paste account notes, prior QBR insights, contract terms, anything the model should know"></textarea>
+            <button class="btn-primary" id="save-note-btn">Save note</button>
+          </div>
+          <div id="notes-list" class="notes-list"></div>
+        </div>
+
+        <!-- TAB: PERFORMANCE -->
+        <div class="tab-panel" data-panel="performance">
+          <div class="form-grid">
+            <input id="perf-file" type="file" accept=".csv" class="config-input" />
+            <button class="btn-primary" id="upload-perf-btn">Upload Mojo CSV</button>
+          </div>
+          <div class="muted">Expected: Mojo "All Clients - Client Report" CSV. Multiple uploads allowed — useful when you have one file per currency. Tip: include the currency in the filename (e.g. <code>clients_USD.csv</code>) so the agent can tell them apart.</div>
+          <div id="perf-list" class="notes-list"></div>
+        </div>
+
+        <!-- TAB: TRANSCRIPTS -->
+        <div class="tab-panel" data-panel="transcripts">
+          <div class="muted" style="margin-bottom: 10px;">
+            Upload up to 3 .txt transcripts from past calls (download them from Avoma or anywhere else). The agent reads the most recent 3 when generating a brief.
+          </div>
+          <div class="form-grid">
+            <input id="transcript-file" type="file" accept=".txt,.vtt,.srt,text/plain" class="config-input" />
+            <input id="transcript-date" type="date" class="config-input small" />
+            <input id="transcript-title" class="config-input" placeholder="Call title (optional, e.g. 'QBR with Indeed CSM')" />
+            <button class="btn-primary" id="upload-transcript-btn">Upload transcript</button>
+          </div>
+          <div class="actions-row">
+            <span class="muted" id="transcript-status"></span>
+          </div>
+          <div id="transcript-list" class="notes-list"></div>
+        </div>
+      </div>
+
+      <!-- CONFIG -->
+      <!-- PAST BRIEFINGS -->
+      <div class="section-card">
+        <div class="row-between">
+          <div>
+            <div class="section-title">📚 Past briefings</div>
+            <div class="section-subtitle">Every briefing generated, newest first. Includes who generated it and when.</div>
+          </div>
+          <button class="btn-secondary" id="reload-history-btn">Reload</button>
+        </div>
+        <div id="history-list" class="calls-list">
+          <div class="muted">Loading...</div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-title">⚙️ Slack delivery</div>
+        <div class="config-row">
+          <span class="config-label">Channel override</span>
+          <input class="config-input" id="slack-channel" type="text" placeholder="#supply-partnership-product (uses webhook default if blank)" />
+        </div>
+        <div class="muted">Webhook URL is set on the server via <code>SLACK_WEBHOOK_URL</code>. If unset, sends will return a copyable preview instead of posting.</div>
+      </div>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1355 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pre Call Agent · Showcase</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Lato:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap");
+
+      :root {
+        --bg: #0a0a0f;
+        --surface: #111118;
+        --surface2: #1a1a24;
+        --surface3: #22222e;
+        --border: rgba(255, 255, 255, 0.07);
+        --border2: rgba(255, 255, 255, 0.13);
+        --text: #e8e8f0;
+        --text2: #8888aa;
+        --text3: #555570;
+        --accent: #5454BF;
+        --accent2: #202058;
+        --green: #34d399;
+        --amber: #fbbf24;
+        --red: #f87171;
+        --blue: #60a5fa;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        background: #ececf2;
+      }
+      body {
+        font-family: Lato, sans-serif;
+        color: #1a1a24;
+        padding: 24px;
+        line-height: 1.5;
+      }
+
+      .doc {
+        max-width: 940px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .page {
+        background: white;
+        border-radius: 14px;
+        padding: 48px 56px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        page-break-after: always;
+        min-height: 1100px;
+        display: flex;
+        flex-direction: column;
+      }
+      .page:last-child {
+        page-break-after: auto;
+      }
+
+      .kicker {
+        font-family: Poppins, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      h1 {
+        font-family: Poppins, sans-serif;
+        font-size: 56px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 14px;
+        line-height: 1.05;
+      }
+      h2 {
+        font-family: Poppins, sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+        margin-bottom: 18px;
+        letter-spacing: -0.01em;
+      }
+      h3 {
+        font-family: Poppins, sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        margin: 20px 0 10px;
+        letter-spacing: 0.02em;
+      }
+      h4 {
+        font-family: Poppins, sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #555;
+        margin: 16px 0 8px;
+      }
+      p {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 8px;
+      }
+      ul,
+      ol {
+        padding-left: 22px;
+      }
+      li {
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 4px 0;
+      }
+      code {
+        font-family: "DM Mono", monospace;
+        background: #f0f0f5;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-size: 12px;
+        color: #5b4cdb;
+      }
+      small {
+        font-size: 11px;
+        color: #888;
+      }
+
+      /* COVER */
+      .page.cover {
+        background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);
+        color: white;
+        justify-content: center;
+        min-height: 100vh;
+      }
+      .page.cover .kicker {
+        color: var(--accent2);
+      }
+      .page.cover h1 {
+        font-size: 72px;
+      }
+      .page.cover .lede {
+        font-size: 18px;
+        color: #ccc;
+        max-width: 600px;
+        line-height: 1.55;
+        margin-top: 8px;
+      }
+      .page.cover .meta {
+        margin-top: 80px;
+        font-size: 12px;
+        color: #888;
+        font-family: "DM Mono", monospace;
+      }
+
+      /* FLOW DIAGRAM */
+      .flow {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 14px;
+        margin: 20px 0;
+      }
+      .flow-step {
+        background: #fafafe;
+        border: 1px solid #e8e8f0;
+        border-radius: 12px;
+        padding: 18px 16px;
+        position: relative;
+      }
+      .flow-step:not(:last-child)::after {
+        content: "→";
+        position: absolute;
+        right: -12px;
+        top: 38%;
+        color: var(--accent);
+        font-size: 24px;
+        font-weight: 700;
+        z-index: 1;
+      }
+      .flow-num {
+        font-family: Poppins, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--accent);
+        letter-spacing: 0.15em;
+      }
+      .flow-title {
+        font-family: Poppins, sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        margin: 4px 0 8px;
+      }
+      .flow-step ul {
+        padding-left: 18px;
+      }
+      .flow-step li {
+        font-size: 12px;
+        color: #555;
+        margin: 3px 0;
+        line-height: 1.4;
+      }
+
+      /* APP MOCKUP — DARK THEME PANEL */
+      .mockup {
+        background: var(--bg);
+        color: var(--text);
+        border-radius: 12px;
+        padding: 22px;
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        margin: 14px 0;
+        border: 1px solid #2a2a35;
+      }
+      .mockup-caption {
+        font-size: 11px;
+        color: #777;
+        font-style: italic;
+        margin-top: 6px;
+      }
+
+      .m-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 16px;
+      }
+      .m-logo {
+        font-family: Poppins, sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 4px;
+      }
+      .m-title {
+        font-family: Poppins, sans-serif;
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--text);
+      }
+      .m-date {
+        font-family: Poppins, sans-serif;
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--text3);
+        line-height: 1;
+        text-align: right;
+      }
+      .m-date-sub {
+        font-size: 10px;
+        color: var(--text3);
+        text-align: right;
+      }
+
+      .m-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px 18px;
+        margin-bottom: 12px;
+      }
+      .m-section-title {
+        font-family: Poppins, sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 4px;
+      }
+      .m-section-sub {
+        font-size: 10px;
+        color: var(--text3);
+        margin-bottom: 12px;
+      }
+
+      .m-call-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 11px 14px;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 8px;
+      }
+      .m-call-row.active {
+        border-color: var(--accent);
+        background: rgba(124, 106, 255, 0.06);
+      }
+      .m-call-meta {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .m-time {
+        font-family: Poppins, sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text3);
+        min-width: 48px;
+      }
+      .m-partner {
+        font-family: Poppins, sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .m-call-title {
+        font-size: 10px;
+        color: var(--text3);
+        margin-top: 2px;
+      }
+      .m-arrow {
+        color: var(--text3);
+      }
+
+      .tier {
+        font-family: Poppins, sans-serif;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        padding: 2px 6px;
+        border-radius: 4px;
+        border: 1px solid transparent;
+      }
+      .tier.p0 {
+        background: rgba(248, 113, 113, 0.15);
+        color: var(--red);
+        border-color: rgba(248, 113, 113, 0.4);
+      }
+      .tier.p1 {
+        background: rgba(251, 191, 36, 0.15);
+        color: var(--amber);
+        border-color: rgba(251, 191, 36, 0.4);
+      }
+      .tier.p2 {
+        background: rgba(96, 165, 250, 0.15);
+        color: var(--blue);
+        border-color: rgba(96, 165, 250, 0.4);
+      }
+      .tier.unlisted {
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text3);
+        border-color: var(--border);
+      }
+
+      /* WORKBENCH MOCKUP */
+      .m-tabs {
+        display: flex;
+        gap: 2px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 14px;
+      }
+      .m-tab {
+        padding: 8px 14px;
+        font-family: Poppins, sans-serif;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text3);
+        border-bottom: 2px solid transparent;
+      }
+      .m-tab.active {
+        color: var(--text);
+        border-bottom-color: var(--accent);
+      }
+
+      .m-brief-section {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+      }
+      .m-brief-label {
+        font-family: Poppins, sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text2);
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .m-edit {
+        font-size: 9px;
+        color: var(--text3);
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        padding: 1px 6px;
+        font-family: "DM Mono", monospace;
+      }
+      .m-lead {
+        font-size: 12px;
+        color: var(--text);
+        margin-bottom: 6px;
+        line-height: 1.5;
+      }
+      .m-list {
+        padding-left: 14px;
+        margin: 4px 0;
+      }
+      .m-list li {
+        font-size: 11px;
+        color: var(--text2);
+        line-height: 1.45;
+        padding: 2px 0;
+      }
+      .m-cols-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+      }
+      .m-cols-3 h5 {
+        font-family: Poppins, sans-serif;
+        font-size: 9px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--text3);
+        margin-bottom: 4px;
+      }
+
+      .m-metrics {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 6px;
+        margin: 10px 0;
+      }
+      .m-metric {
+        background: var(--surface3);
+        border-radius: 5px;
+        padding: 6px 4px;
+        text-align: center;
+      }
+      .m-metric-label {
+        font-size: 8px;
+        color: var(--text3);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .m-metric-value {
+        font-family: Poppins, sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text);
+        margin-top: 2px;
+      }
+
+      .m-tp,
+      .m-rec {
+        background: var(--surface3);
+        border-radius: 6px;
+        padding: 8px 10px;
+        margin-bottom: 6px;
+        border-left: 3px solid var(--accent);
+      }
+      .m-tp-point {
+        font-size: 11px;
+        color: var(--text);
+        margin-bottom: 3px;
+      }
+      .m-tp-rationale {
+        font-size: 9px;
+        color: var(--text3);
+      }
+      .m-rec-title {
+        font-family: Poppins, sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .m-rec-row {
+        font-size: 10px;
+        color: var(--text2);
+        margin: 2px 0;
+        line-height: 1.4;
+      }
+      .m-rec-row.warn {
+        color: var(--red);
+      }
+
+      .m-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 14px;
+        flex-wrap: wrap;
+      }
+      .m-btn {
+        font-family: Poppins, sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 7px 12px;
+        border-radius: 6px;
+        border: 1px solid;
+      }
+      .m-btn.primary {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+      .m-btn.approve {
+        background: rgba(52, 211, 153, 0.12);
+        color: var(--green);
+        border-color: rgba(52, 211, 153, 0.4);
+      }
+      .m-btn.secondary {
+        background: var(--surface2);
+        color: var(--text);
+        border-color: var(--border2);
+      }
+
+      /* TABLES */
+      table.simple {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0 14px;
+        font-size: 12px;
+      }
+      table.simple th,
+      table.simple td {
+        text-align: left;
+        padding: 8px 10px;
+        border-bottom: 1px solid #eee;
+        vertical-align: top;
+      }
+      table.simple th {
+        font-family: Poppins, sans-serif;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #777;
+        background: #fafafe;
+      }
+
+      /* PRINT NOTICE */
+      .print-notice {
+        background: #fff8e7;
+        border: 1px solid #f3d68a;
+        border-radius: 8px;
+        padding: 14px 18px;
+        margin-bottom: 18px;
+        font-size: 13px;
+        color: #5d4a16;
+      }
+      .print-notice strong {
+        color: #3a2f08;
+      }
+
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+        }
+        .doc {
+          gap: 0;
+          max-width: none;
+        }
+        .page {
+          box-shadow: none;
+          border-radius: 0;
+          padding: 30px 36px;
+          min-height: auto;
+          height: 1054px;
+        }
+        .page.cover {
+          height: 1054px;
+        }
+        .print-notice {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="print-notice">
+      <strong>To export as PDF:</strong> press <code>Ctrl+P</code> (or
+      <code>Cmd+P</code>), choose <em>Save as PDF</em>, set margins to "None" or
+      "Minimum", and uncheck "Headers and footers" for the cleanest result.
+    </div>
+
+    <div class="doc">
+      <!-- ─── PAGE 1 — COVER ─────────────────────────────────────────────────── -->
+      <section class="page cover">
+        <div class="kicker">Joveo · Internal · v1.0</div>
+        <h1>Pre Call<br />Agent</h1>
+        <p class="lede">
+          Publisher call prep, automated. From cold open to live deck in minutes
+          — with a human signing off before anything ships.
+        </p>
+        <p class="meta">
+          Showcase document · process flow, sample output, app preview
+        </p>
+      </section>
+
+      <!-- ─── PAGE 2 — WHAT IT IS + FLOW ────────────────────────────────────── -->
+      <section class="page">
+        <div class="kicker">01 · Overview</div>
+        <h2>What it does</h2>
+        <p>
+          Every morning, Pre Call Agent reads your calendar, identifies which
+          meetings are with known publisher partners, and assembles a deck-ready
+          brief for each one. Inputs span public news, past-call transcripts
+          (uploaded as .txt by the rep), uploaded campaign performance, and
+          internal account notes. The agent never auto-sends — every brief is
+          a draft until a human approves.
+        </p>
+
+        <h3>Process flow</h3>
+        <div class="flow">
+          <div class="flow-step">
+            <div class="flow-num">01</div>
+            <div class="flow-title">Gather</div>
+            <ul>
+              <li>Calendar → today's calls</li>
+              <li>Match against 139-publisher list</li>
+              <li>Pull news (web search)</li>
+              <li>Read uploaded transcripts</li>
+              <li>Read performance CSV</li>
+              <li>Read account notes</li>
+            </ul>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">02</div>
+            <div class="flow-title">Synthesize</div>
+            <ul>
+              <li>Cross-reference signals</li>
+              <li>What changed since last touchpoint</li>
+              <li>Performance trend (period vs period)</li>
+              <li>Open commitments &amp; threads from past calls</li>
+              <li>Material news (last 90 days)</li>
+            </ul>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">03</div>
+            <div class="flow-title">Recommend</div>
+            <ul>
+              <li>Account snapshot</li>
+              <li>Performance read</li>
+              <li>3–5 talking points</li>
+              <li>Campaign suggestions w/ rationale</li>
+              <li>Risks &amp; threads to close</li>
+            </ul>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">04</div>
+            <div class="flow-title">Validate &amp; Ship</div>
+            <ul>
+              <li>Rep edits any section</li>
+              <li>Approves a final version</li>
+              <li>Opens HTML deck, downloads A4 PDF, or sends to Slack</li>
+              <li>Emails the brief to themselves via Gmail API (HTML, no truncation)</li>
+              <li>Briefing archived in shared Sheet · paginated history</li>
+              <li>Approved briefs can be edited &amp; re-approved in place, or forked into a new draft</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Tech stack</h3>
+        <table class="simple">
+          <tr>
+            <th>Layer</th>
+            <th>Choice</th>
+            <th>Why</th>
+          </tr>
+          <tr>
+            <td>Backend</td>
+            <td>FastAPI on Vercel (Python 3.12)</td>
+            <td>Serverless, cheap, scales to zero</td>
+          </tr>
+          <tr>
+            <td>LLM</td>
+            <td>Gemini 2.5 Flash Lite + Google Search grounding</td>
+            <td>
+              Native Google Search grounding; calendar fetched via the Google
+              Calendar API using the same service account as Sheets
+            </td>
+          </tr>
+          <tr>
+            <td>Storage</td>
+            <td>Google Sheets</td>
+            <td>No DB to manage; rep-friendly to inspect/edit</td>
+          </tr>
+          <tr>
+            <td>Past calls</td>
+            <td>Rep-uploaded .txt transcripts</td>
+            <td>No vendor API key needed; works regardless of where the transcript came from (Avoma, Gong, Otter, manual)</td>
+          </tr>
+          <tr>
+            <td>Frontend</td>
+            <td>Vanilla HTML/CSS/JS in <code>public/</code></td>
+            <td>Zero build step</td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- ─── PAGE 3 — APP MOCKUP: TODAY'S CALLS ────────────────────────────── -->
+      <section class="page">
+        <div class="kicker">02 · App preview · screen 1</div>
+        <h2>Today's calls — auto-detected</h2>
+        <p>
+          The app reads your Google Calendar, matches each event against the
+          curated publisher list (P0/P1/P2), and shows them sorted by priority.
+          Internal meetings, 1:1s, and personal blocks are filtered out
+          automatically.
+        </p>
+
+        <div class="mockup">
+          <div class="m-header">
+            <div>
+              <div class="m-logo">Joveo · Partnerships</div>
+              <div class="m-title">Pre Call Agent</div>
+            </div>
+            <div>
+              <div class="m-date">29</div>
+              <div class="m-date-sub">Wednesday · Apr 2026</div>
+            </div>
+          </div>
+
+          <div class="m-card">
+            <div class="m-section-title">📅 Today's partner calls</div>
+            <div class="m-section-sub">
+              Pulled from your Google Calendar via the Calendar API. 3 of 7
+              events matched the publisher list.
+            </div>
+
+            <div class="m-call-row active">
+              <div class="m-call-meta">
+                <div class="m-time">10:00</div>
+                <div>
+                  <div class="m-partner">
+                    Indeed <span class="tier p0">P0</span>
+                  </div>
+                  <div class="m-call-title">
+                    Indeed · Quarterly Partner Review
+                  </div>
+                </div>
+              </div>
+              <div class="m-arrow">→</div>
+            </div>
+
+            <div class="m-call-row">
+              <div class="m-call-meta">
+                <div class="m-time">14:30</div>
+                <div>
+                  <div class="m-partner">
+                    LinkedIn <span class="tier p1">P1</span>
+                  </div>
+                  <div class="m-call-title">
+                    LTS · Campaign Strategy (mary@linkedin.com)
+                  </div>
+                </div>
+              </div>
+              <div class="m-arrow">→</div>
+            </div>
+
+            <div class="m-call-row">
+              <div class="m-call-meta">
+                <div class="m-time">15:30</div>
+                <div>
+                  <div class="m-partner">
+                    StepStone <span class="tier unlisted">unlisted</span>
+                  </div>
+                  <div class="m-call-title">
+                    Intro discovery (hans@stepstone.com)
+                  </div>
+                </div>
+              </div>
+              <div class="m-arrow">→</div>
+            </div>
+          </div>
+
+          <div class="m-card" style="padding: 12px 18px">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <div>
+                <div class="m-section-title">⚙️ Slack delivery</div>
+                <div class="m-section-sub" style="margin-bottom: 0">
+                  Webhook configured · default channel
+                  <code
+                    style="
+                      background: rgba(255, 255, 255, 0.05);
+                      color: #b6acff;
+                    "
+                    >#supply-partnership-product</code
+                  >
+                </div>
+              </div>
+              <span class="tier p2" style="font-size: 9px">connected</span>
+            </div>
+          </div>
+        </div>
+        <div class="mockup-caption">
+          Mockup of <code>public/index.html</code> · the live app uses the same
+          styles.
+        </div>
+
+        <h3>How publisher matching works</h3>
+        <ol>
+          <li>
+            <strong>Title match</strong> — event title contains a publisher name
+            or alias (e.g. <code>"LTS Sync"</code> matches LinkedIn via the
+            <code>"LTS"</code> alias)
+          </li>
+          <li>
+            <strong>Domain match</strong> — attendee email domain matches a
+            known publisher domain (e.g. <code>@indeed.com</code> → Indeed)
+          </li>
+          <li>
+            <strong>External inferred</strong> — neither, but the event clearly
+            involves an external company → tagged <code>unlisted</code>
+          </li>
+        </ol>
+        <p>
+          The 139 publishers are curated in <code>app/publishers.py</code>,
+          sorted into tiers — 26 P0, 113 P1, 0 P2 (placeholder). Reps can
+          promote/demote any entry.
+        </p>
+      </section>
+
+      <!-- ─── PAGE 4 — APP MOCKUP: WORKBENCH ───────────────────────────────── -->
+      <section class="page">
+        <div class="kicker">03 · App preview · screen 2</div>
+        <h2>Workbench — feed context, generate brief</h2>
+        <p>
+          Click any call to open the workbench. Four tabs let you feed the agent
+          context it can't get on its own (notes, performance CSVs, past-call
+          transcripts you've uploaded).
+        </p>
+
+        <div class="mockup">
+          <div class="m-card" style="margin-bottom: 0">
+            <div class="m-section-title">🔧 Workbench — Indeed</div>
+            <div class="m-section-sub">
+              10:00 · Indeed Quarterly Partner Review
+            </div>
+
+            <div class="m-tabs">
+              <div class="m-tab active">Brief</div>
+              <div class="m-tab">Notes &amp; QBR</div>
+              <div class="m-tab">Performance</div>
+              <div class="m-tab">Transcripts</div>
+            </div>
+
+            <div class="m-actions" style="margin-top: 0; margin-bottom: 10px">
+              <div class="m-btn primary">⚡ Generate briefing</div>
+              <span
+                style="font-size: 10px; color: var(--text3); align-self: center"
+                >Draft generated · briefing #143</span
+              >
+            </div>
+
+            <div class="m-brief-section">
+              <div class="m-brief-label">
+                📌 Account snapshot <span class="m-edit">Edit</span>
+              </div>
+              <div class="m-lead">
+                Indeed in cost-cutting mode after layoffs but pushing hard on
+                Smart Sourcing CPC. Our CPA degrading right as renewal
+                approaches.
+              </div>
+              <h5
+                style="
+                  font-family: Poppins, sans-serif;
+                  font-size: 9px;
+                  color: var(--text3);
+                  text-transform: uppercase;
+                  margin: 8px 0 4px;
+                  letter-spacing: 0.08em;
+                "
+              >
+                What's changed
+              </h5>
+              <ul class="m-list">
+                <li>Layoffs in product org announced March 28 (TechCrunch)</li>
+                <li>Smart Sourcing CPC inventory launched April 12</li>
+                <li>New VP Partnerships, J. Reyes, joined April 1</li>
+              </ul>
+            </div>
+
+            <div class="m-brief-section">
+              <div class="m-brief-label">
+                📊 Performance read <span class="m-edit">Edit</span>
+              </div>
+              <div class="m-lead">
+                Apply rate down 14% MoM driven by ClientX. CPA at $48 — 22%
+                above target.
+              </div>
+              <div class="m-metrics">
+                <div class="m-metric">
+                  <div class="m-metric-label">Spend</div>
+                  <div class="m-metric-value">$84K</div>
+                </div>
+                <div class="m-metric">
+                  <div class="m-metric-label">Clicks</div>
+                  <div class="m-metric-value">12.4K</div>
+                </div>
+                <div class="m-metric">
+                  <div class="m-metric-label">Applies</div>
+                  <div class="m-metric-value">1.75K</div>
+                </div>
+                <div class="m-metric">
+                  <div class="m-metric-label">CPC</div>
+                  <div class="m-metric-value">$6.77</div>
+                </div>
+                <div class="m-metric">
+                  <div class="m-metric-label">CPA</div>
+                  <div class="m-metric-value">$48</div>
+                </div>
+                <div class="m-metric">
+                  <div class="m-metric-label">Apply rate</div>
+                  <div class="m-metric-value">14.1%</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="m-brief-section">
+              <div class="m-brief-label">
+                💬 Talking points <span class="m-edit">Edit</span>
+              </div>
+              <div class="m-tp">
+                <div class="m-tp-point">
+                  Open with the layoffs — acknowledge the org change, ask who's
+                  now owning our partnership.
+                </div>
+                <div class="m-tp-rationale">
+                  why: signals awareness, opens space to re-anchor the
+                  relationship · tied to news
+                </div>
+              </div>
+              <div class="m-tp">
+                <div class="m-tp-point">
+                  Bring CPA degradation up before they do — show we're tracking
+                  it.
+                </div>
+                <div class="m-tp-rationale">
+                  why: defuses an awkward question · tied to performance
+                </div>
+              </div>
+              <div class="m-tp">
+                <div class="m-tp-point">
+                  Pitch a Smart Sourcing CPC pilot for ClientX top 5 campaigns.
+                </div>
+                <div class="m-tp-rationale">
+                  why: ties to their new product push, lets us reset the CPA
+                  narrative · tied to news + performance
+                </div>
+              </div>
+            </div>
+
+            <div class="m-actions">
+              <div class="m-btn approve">✓ Approve</div>
+              <div class="m-btn secondary">📊 Open deck</div>
+              <div class="m-btn secondary">📄 Download PDF</div>
+              <div class="m-btn secondary">💬 Send to Slack</div>
+              <div class="m-btn secondary">📧 Email</div>
+              <span
+                style="font-size: 10px; color: var(--green); align-self: center"
+                >✓ Approved · ready to ship</span
+              >
+            </div>
+            <div class="m-actions" style="margin-top: 8px">
+              <div class="m-btn secondary">✏️ Edit this briefing</div>
+              <div class="m-btn approve">📝 Save as new draft</div>
+              <span
+                style="font-size: 10px; color: var(--text2); align-self: center"
+                >Re-approve updates this record · Save-as-new forks a draft</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── PAGE 5 — SAMPLE OUTPUT (1) ────────────────────────────────────── -->
+      <section class="page">
+        <div class="kicker">04 · Sample output (Indeed · part 1)</div>
+        <h2>What the brief actually contains</h2>
+        <p>
+          Real example brief for a 10:00 Indeed Quarterly Partner Review, with
+          all four signal sources contributing.
+        </p>
+
+        <h3>📌 Account snapshot</h3>
+        <p>
+          <strong>Headline:</strong> Indeed is in cost-cutting mode after the
+          March layoffs but pushing hard on Smart Sourcing CPC. Our CPA is
+          degrading right as renewal approaches.
+        </p>
+        <h4>What's changed</h4>
+        <ul>
+          <li>Layoffs in product org announced March 28 (TechCrunch, T1)</li>
+          <li>
+            Smart Sourcing CPC inventory launched April 12 (Indeed blog, T1)
+          </li>
+          <li>New VP Partnerships, J. Reyes, joined April 1 (LinkedIn, T1)</li>
+        </ul>
+        <h4>What matters now</h4>
+        <p>
+          Indeed wants programmatic partners onto Smart Sourcing fast. Our CPA
+          degradation hands them ammunition in renewal talks scheduled for May.
+          Closing this gap before then is the central play.
+        </p>
+
+        <h3>📊 Performance read</h3>
+        <p>
+          <strong>Headline:</strong> Apply rate down 14% MoM driven by ClientX.
+          CPA at $48 — 22% above target.
+        </p>
+        <table class="simple">
+          <tr>
+            <th>Metric</th>
+            <th>Last 30d</th>
+            <th>Prior 30d</th>
+            <th>Δ</th>
+          </tr>
+          <tr>
+            <td>Spend</td>
+            <td>$84,230</td>
+            <td>$80,120</td>
+            <td style="color: var(--green)">+5.1%</td>
+          </tr>
+          <tr>
+            <td>Applies</td>
+            <td>1,754</td>
+            <td>2,041</td>
+            <td style="color: var(--red)">−14.1%</td>
+          </tr>
+          <tr>
+            <td>CPA</td>
+            <td>$48.02</td>
+            <td>$39.25</td>
+            <td style="color: var(--red)">+22.4%</td>
+          </tr>
+          <tr>
+            <td>Apply rate</td>
+            <td>14.1%</td>
+            <td>16.8%</td>
+            <td style="color: var(--red)">−16.1%</td>
+          </tr>
+        </table>
+        <h4>What's working</h4>
+        <ul>
+          <li>
+            Healthcare campaigns held flat at $32 CPA — protect this segment
+          </li>
+        </ul>
+        <h4>What's not</h4>
+        <ul>
+          <li>
+            ClientX CPA jumped from $35 → $61 in 30 days — single-handed driver
+            of the average
+          </li>
+          <li>
+            Apply rate compression on entry-level retail postings — likely
+            Indeed's relevance algorithm change
+          </li>
+        </ul>
+        <h4>Where to lean in</h4>
+        <ul>
+          <li>
+            Test Smart Sourcing CPC on ClientX's 5 highest-spend campaigns for 2
+            weeks
+          </li>
+          <li>Pause low-quality ClientX feeds while we re-tune</li>
+        </ul>
+      </section>
+
+      <!-- ─── PAGE 6 — SAMPLE OUTPUT (2) ────────────────────────────────────── -->
+      <section class="page">
+        <div class="kicker">04 · Sample output (Indeed · part 2)</div>
+
+        <h3>🗞 What's in the air (last 90 days)</h3>
+        <table class="simple">
+          <tr>
+            <th>#</th>
+            <th>Headline</th>
+            <th>Source</th>
+            <th>Tier · Recency</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>
+              Indeed cuts 1,000 product roles, restructures around AI matching
+            </td>
+            <td>TechCrunch</td>
+            <td>T1 · This week</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>
+              Smart Sourcing CPC inventory rolls out to programmatic partners
+            </td>
+            <td>Indeed Blog</td>
+            <td>T1 · This month</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>
+              Recruit Holdings names new Indeed CEO, signals tighter cost
+              control
+            </td>
+            <td>Reuters</td>
+            <td>T1 · This month</td>
+          </tr>
+        </table>
+
+        <h3>🧵 Where we left off (transcripts · last 3 calls)</h3>
+        <p>
+          <strong>Last call summary:</strong> Discussion centered on ATS feed
+          reliability complaints from ClientX. Mary committed to escalating
+          internally. Tone tense around CPA performance.
+        </p>
+        <h4>Open commitments</h4>
+        <ul>
+          <li>
+            <strong>Joveo:</strong> Send Q1 performance deck (due April 5 —
+            <span style="color: var(--red)">24 days overdue</span>)
+          </li>
+          <li>
+            <strong>Indeed:</strong> Share new Smart Sourcing CPC eligibility
+            criteria (open)
+          </li>
+        </ul>
+        <h4>Open threads</h4>
+        <ul>
+          <li>ClientX ATS feed complaint — unresolved</li>
+          <li>Quarterly business review date for Q2 — never confirmed</li>
+        </ul>
+        <p>
+          <small
+            >Sentiment last call: <strong>tense</strong> · 3 transcripts
+            analysed</small
+          >
+        </p>
+
+        <h3>💬 Talking points</h3>
+        <ol>
+          <li>
+            <strong>Open with the layoffs.</strong> Acknowledge the org change,
+            ask who's now owning our partnership.
+            <em>Why: signals awareness, opens space to re-anchor.</em>
+          </li>
+          <li>
+            <strong>Bring CPA degradation up before they do.</strong> Show we're
+            tracking. <em>Why: defuses an awkward question.</em>
+          </li>
+          <li>
+            <strong
+              >Pitch a Smart Sourcing CPC pilot for ClientX top 5
+              campaigns.</strong
+            >
+            <em
+              >Why: ties to their new product push, lets us reset the CPA
+              narrative.</em
+            >
+          </li>
+          <li>
+            <strong>Confirm Q2 QBR date.</strong>
+            <em>Why: the transcript synthesis flagged this is open from last call.</em>
+          </li>
+        </ol>
+
+        <h3>🚀 Campaign recommendations</h3>
+        <table class="simple">
+          <tr>
+            <th>Title</th>
+            <th>Why</th>
+            <th>Expected impact</th>
+            <th>Risk</th>
+          </tr>
+          <tr>
+            <td><strong>Smart Sourcing CPC pilot — ClientX top 5</strong></td>
+            <td>
+              Aligns with Indeed's product push; ClientX is the CPA outlier
+              driving the trend
+            </td>
+            <td>15% CPA reduction on those 5 campaigns within 14 days</td>
+            <td style="color: var(--red)">
+              Geo coverage may be thin in Tier-2 cities
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Pause bottom-quartile retail feeds</strong></td>
+            <td>
+              Apply rate compression suggests relevance algo deprioritised them
+            </td>
+            <td>Cut ~$8K/mo wasted spend with no apply loss</td>
+            <td>Need ClientX sign-off before pausing</td>
+          </tr>
+        </table>
+
+        <h3>⚠️ Don't walk in blind</h3>
+        <ul>
+          <li>
+            <strong>Threads to close:</strong> Send the Q1 deck (24 days
+            overdue)
+          </li>
+          <li>
+            <strong>Risks to flag:</strong> Don't bring up the 8% rate cut ask
+            first — wait for them. Watch for J. Reyes asking "what's changed" —
+            they'll be looking for fresh wins to claim.
+          </li>
+        </ul>
+      </section>
+
+      <!-- ─── PAGE 7 — SETUP CHECKLIST ──────────────────────────────────────── -->
+      <section class="page">
+        <div class="kicker">05 · Setup</div>
+        <h2>What to configure before launch</h2>
+
+        <h3>Required environment variables</h3>
+        <table class="simple">
+          <tr>
+            <th>Key</th>
+            <th>Required</th>
+            <th>Source</th>
+          </tr>
+          <tr>
+            <td><code>GEMINI_API_KEY</code></td>
+            <td>Yes</td>
+            <td>aistudio.google.com/apikey</td>
+          </tr>
+          <tr>
+            <td><code>GOOGLE_CALENDAR_ID</code></td>
+            <td>No (defaults to <code>primary</code>)</td>
+            <td>Use rep's email if domain-wide delegation is enabled</td>
+          </tr>
+          <tr>
+            <td><code>GOOGLE_CREDENTIALS_JSON</code></td>
+            <td>Yes</td>
+            <td>Google Cloud → service account JSON, on a single line</td>
+          </tr>
+          <tr>
+            <td><code>GOOGLE_SHEET_ID</code></td>
+            <td>Yes</td>
+            <td>
+              From the Sheet URL:
+              <code>docs.google.com/spreadsheets/d/&lt;THIS&gt;/edit</code>
+            </td>
+          </tr>
+          <tr>
+            <td><code>SLACK_WEBHOOK_URL</code></td>
+            <td>Optional</td>
+            <td>
+              Slack → Apps → Incoming Webhooks. Without it, app shows a copyable
+              preview.
+            </td>
+          </tr>
+          <tr>
+            <td><code>SLACK_DEFAULT_CHANNEL</code></td>
+            <td>No</td>
+            <td>Defaults to <code>#supply-partnership-product</code></td>
+          </tr>
+        </table>
+
+        <h3>One-time setup</h3>
+        <ol>
+          <li>
+            <strong>Google Cloud project</strong> → enable
+            <strong>Sheets API</strong>, <strong>Calendar API</strong>, and
+            <strong>Gmail API</strong> → create service account for Sheets →
+            download JSON
+          </li>
+          <li>
+            <strong>Create the Sheet</strong>, share it with the service account
+            email, copy its ID
+          </li>
+          <li>
+            <strong>Configure OAuth consent + client</strong> with these scopes:
+            <code>openid</code>, <code>userinfo.email</code>,
+            <code>userinfo.profile</code>,
+            <code>calendar.readonly</code>, and
+            <code>gmail.send</code> (for the 📧 Email button)
+          </li>
+          <li>
+            <strong>Gemini key</strong> from
+            <code>aistudio.google.com/apikey</code> (~30 seconds) — enable billing
+            on the Cloud project to lift the daily free-tier cap
+          </li>
+          <li>
+            <strong>Slack webhook</strong> if posting to channels (optional)
+          </li>
+          <li>
+            <strong>Playwright + Chromium</strong> (optional, for highest-fidelity
+            server-side PDFs locally): <code>playwright install chromium</code>.
+            Without it, the 📄 Download PDF button falls back to the browser's
+            Save-as-PDF dialog automatically.
+          </li>
+          <li>
+            <strong>Curate publishers</strong> in
+            <code>app/publishers.py</code> — promote LinkedIn to P0, add
+            Glassdoor, fill missing domains
+          </li>
+        </ol>
+
+        <h3>Daily user flow (employees)</h3>
+        <ol>
+          <li>
+            Open the app → sign in with Google (one-time consent for
+            calendar.readonly + gmail.send)
+          </li>
+          <li>See today's calls auto-loaded, sorted by tier</li>
+          <li>
+            Click into a call → optionally add notes / upload Mojo CSV(s) /
+            upload up to 3 past-call .txt transcripts → click
+            <strong>⚡ Generate briefing</strong>
+          </li>
+          <li>Wait ~10–15 seconds for synthesis (gather steps run in parallel)</li>
+          <li>Review &amp; edit any section that needs sharpening</li>
+          <li>
+            Click <strong>✓ Approve</strong>, then ship via
+            <strong>📊 Open deck</strong>,
+            <strong>📄 Download PDF</strong>,
+            <strong>💬 Send to Slack</strong>, or
+            <strong>📧 Email</strong> (server-side Gmail send to your inbox)
+          </li>
+          <li>
+            Need to revise a previously-approved brief? Open it from
+            <strong>Past briefings</strong> → click
+            <strong>✏️ Edit this briefing</strong> → make changes →
+            <strong>✓ Re-approve</strong> (same record updated). Or
+            <strong>📝 Save as new draft</strong> to fork.
+          </li>
+          <li>Walk into the call</li>
+        </ol>
+
+        <p
+          style="
+            margin-top: 32px;
+            font-size: 11px;
+            color: #888;
+            font-family: &quot;DM Mono&quot;, monospace;
+          "
+        >
+          Pre Call Agent · Joveo Internal · Built for the Supply team and beyond
+        </p>
+      </section>
+    </div>
+  </body>
+</html>
